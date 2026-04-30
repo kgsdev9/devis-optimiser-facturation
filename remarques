@@ -1,0 +1,60 @@
+quand il bacule sur la seuxmee page si j'ai rentré une section par exemple 
+
+experiece 1 et experience 2 il complete l'experiene suivantes sur l'aute page maisil  i un peu de l'experience sur la premoeire page du cv et la deuxieme page pourtant il doit tout renvoyer sur tout le bloc de l'experience sur al deuxieme page pour la coherence 
+
+probleme 3 
+
+regarde la capture 1 formation est en haut mets le bloc de formation sur la deuxieme page c'st paslogiqu ca 
+
+
+
+
+
+https://cvdesignr.com/fr
+
+Regarde un peu comment pour eux est prope sans probleme stp 
+
+
+
+probleme 4 
+
+
+
+quand j'exporte le cv la photo de profil disparait temporaiment je suis obligé de recharger manullement pour qu'il apparaisse stp corrige ces pobelms la 
+
+
+news
+
+Problème 1
+
+Lors du passage à la deuxième page, si j’ai renseigné plusieurs expériences (par exemple Expérience 1 et Expérience 2), le système répartit incorrectement le contenu entre les pages.
+Une partie de l’expérience apparaît sur la première page et le reste sur la deuxième, alors que tout le bloc d’expérience devrait être affiché de manière cohérente et complète sur la deuxième page.
+
+Problème 3
+
+Sur la capture 1, la section “Formation” apparaît en haut de page de manière incohérente.
+Elle devrait être déplacée entièrement sur la deuxième page pour respecter une mise en page logique et professionnelle.
+À titre de référence, des outils comme https://cvdesignr.com/fr
+ présentent une organisation plus propre et cohérente des sections.
+
+Problème 4
+
+Lors de l’export du CV, la photo de profil disparaît temporairement.
+Je suis obligé de recharger manuellement la page pour qu’elle réapparaisse.
+Merci de corriger ce bug d’affichage lors de l’export.
+
+
+Le design est propre. Cependant, concernant le modèle, il y a une sidebar colorée. Le problème est que lorsque le contenu passe sur la deuxième page, la sidebar continue également sur cette page.
+Or, je ne souhaite pas que la longueur de la sidebar s’étende sur la deuxième page. Seul le contenu doit passer à la page suivante, tandis que la sidebar doit rester limitée à la première page.
+
+mtn j'aiemrais etteindee les models ou il au un sidebar sur l'ensemble de la premiere page comme la deuxieme
+
+.cmod-aside,
+.vl-sidebar,
+.pr-sidebar,
+.sb-left,
+.grad-aside,
+.cr2-sidebar {
+  max-height: 1123px;
+  overflow: hidden;
+}

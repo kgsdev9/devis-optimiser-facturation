@@ -1,0 +1,6 @@
+Non, pas automatiquement. Il faut faire deux choses manuellement :
+Dans TemplateCv.vue — ajouter le rendu HTML du nouveau template (le v-if="selectedTpl==='monTemplate'")
+Dans CVGeneratorView.vue — ajouter l'entrée dans le tableau templates :
+js{ id: 'monTemplate', name: 'Mon Template', defaultAccent: '#...' }
+C'est cette entrée dans templates qui génère automatiquement la miniature dans la grille de sélection à l'étape 6, et qui déclenche le bon rendu dans TemplateCv via le prop selectedTpl.
+Donc c'est 2 endroits, pas 1. Ce qu'on pourrait faire pour vraiment centraliser ça : déplacer le tableau templates dans TemplateCv.vue et l'exposer via un emit ou mieux via un fichier séparé templates.config.js importé dans les deux composants. Comme ça tu touches un seul fichier. Tu veux que je fasse ça ?
