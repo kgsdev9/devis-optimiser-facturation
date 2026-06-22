@@ -107,3 +107,20 @@ function verifchoixtaxe(arg, arg2) {
         $("#netaregler").val(parseFloat(ttcligne) || 0);
     }
 }
+
+
+function recalculateTaxes(key, vmontantHT, arg) {
+    var montantHT = 0;
+    if (arg == 1) {
+        montantHT = vmontantHT;
+        //montantHT = montantHT.replace(/\s+/g, '');
+    } else {
+        montantHT = $("#montantht").val() || 0;
+        //montantHT = montantHT.replace(/\s+/g, '');
+    }
+
+    var idtaxe = $("#idtaxe").val();
+    if (idtaxe != '' && idtaxe !== null && idtaxe !== undefined) {
+        calculateTaxes(key, montantHT, arg)
+    }
+}
