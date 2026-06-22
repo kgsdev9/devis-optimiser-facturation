@@ -1,0 +1,109 @@
+function verifchoixtaxe(arg, arg2) {
+    $('#CpteVente').val('');
+    idtaxe = $("#idtaxe").val();
+    ventedirecte = $("#ventedirecte").val();
+    var idregimevte = $("#idregimevte").val();
+
+    if (idregimevte != '' && idregimevte !== null && idregimevte !== undefined) {
+        if (arg == 1) {
+            if (idregimevte != 1) {
+                $("#idtaxe").val(14);
+                idtaxe = 14;
+            } else {
+                $("#idtaxe").val('');
+                idtaxe = '';
+            }
+        } else {
+            if (idtaxe != '' && idtaxe !== null && idtaxe !== undefined) {
+
+                if (idtaxe < 11 && idregimevte != 1) {
+                    toastr.info("Veuillez choisir un type de taxe Exonéré pour le régime de vente sélectionné SVP!");
+                    $("#idtaxe").val('');
+                    idtaxe = '';
+
+                }
+            }
+        }
+    }
+
+    $("select[name=idtaxe]").selectpicker('refresh');
+    idtaxe = $("#idtaxe").val();
+    $("#libtaxe").val($("#idtaxe").find('option:selected').text());
+
+    var tvaligne = 0;
+    var arsiligne = 0;
+    var ttcligne = 0;
+    var totalHT = 0;
+    var clientdslabase = $('#clientdslabase').is(':checked');
+
+
+    if (idtaxe != '' && idtaxe !== null && idtaxe !== undefined) {
+
+
+        const lignereferences = $('#table-body tr').map(function (index) {
+            const row = $(this);
+
+            // cette ligne posait probleme pouff (modifié par stephane 04/06/2026)
+            const realIndex = $(this).data('row-index');
+
+            var referenceClient = row.find('select[name^="reference-client-select"]').val() ||
+                row.find('input[name^="reference-client-select"]').val() ||
+                row.find('textarea[name^="reference-client-select"]').val() ||
+                '';
+
+            if (referenceClient == '' || referenceClient === null || referenceClient === undefined) {
+                return;
+            }
+
+            if (ventedirecte == 1) {
+                if (clientdslabase) {
+                    calculercptevte(realIndex);
+                } else {
+                    resultatcalculercptevte = 1;
+                }
+
+            } else {
+                resultatcalculercptevte = 1;
+            }
+
+            var quantity = row.find('.quantity').val() || 0;
+            var unitPrice = row.find('.unit-price').val() || 0;
+            var discount = row.find('.discount').val() || 0;
+
+            quantity = parseFloat(String(quantity).replace(/\s+/g, '')) || 0;
+            unitPrice = parseFloat(String(unitPrice).replace(/\s+/g, '')) || 0;
+            discount = parseFloat(String(discount).replace(/\s+/g, '')) || 0;
+
+            var total = quantity * unitPrice;
+            totalHT += total;
+
+            if (discount > 0) {
+                total = total * (1 - discount / 100);
+            }
+
+
+            if (quantity > 0 && unitPrice > 0 && total > 0) {
+                if (resultatcalculercptevte != 0) {
+                    recalculateTaxes(realIndex, total, arg2);
+                }
+            }
+
+            var vtvaligne = row.find('.tvaligne').val() || 0;
+            var varsiligne = row.find('.arsiligne').val() || 0;
+            var vttcligne = row.find('.ttcligne').val() || 0;
+
+            vtvaligne = parseFloat(String(vtvaligne).replace(/\s+/g, '')) || 0;
+            varsiligne = parseFloat(String(varsiligne).replace(/\s+/g, '')) || 0;
+            vttcligne = parseFloat(String(vttcligne).replace(/\s+/g, '')) || 0;
+
+            tvaligne += vtvaligne;
+            arsiligne += varsiligne;
+            ttcligne += vttcligne;
+        });
+
+        $("#montantht").val(parseFloat(totalHT) || 0);
+        $("#tva").val(parseFloat(tvaligne) || 0);
+        $("#asdi").val(parseFloat(arsiligne) || 0);
+        $("#netaregler").val(parseFloat(ttcligne) || 0);
+    }
+}
